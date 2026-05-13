@@ -12,10 +12,7 @@ import Footer from './components/Footer.jsx'
 import LiquidChrome from './components/LiquidChrome.jsx'
 import { ArrowRight, Calendar } from 'lucide-react'
 
-// ─── Vibrant paint-inspired base colors for LiquidChrome ─────────────────────
-// The shader uses baseColor / abs(sin(time - uv)) which creates sweeping bands.
-// Warm coral-gold-teal values produce a vivid paint-pour look.
-const LIQUID_BASE_COLOR = [0.9, 0.35, 0.15] // deep coral → gold → teal bands
+const LIQUID_BASE_COLOR = [0.9, 0.35, 0.15]
 
 const paintBlobs = [
   { color: '#FF6B6B', pos: { top: '10%',  left: '-5%'  }, delay: 0   },
@@ -31,7 +28,6 @@ function HeroSection() {
       id="hero"
       className="relative min-h-screen flex items-center overflow-hidden"
     >
-      {/* ── LiquidChrome fullscreen background ───────────────────────────── */}
       <div className="absolute inset-0 z-0">
         <LiquidChrome
           baseColor={LIQUID_BASE_COLOR}
@@ -43,11 +39,7 @@ function HeroSection() {
           style={{ width: '100%', height: '100%' }}
         />
       </div>
-
-      {/* Dark overlay so text stays readable over the vivid liquid */}
       <div className="absolute inset-0 z-[1] bg-black/45" />
-
-      {/* Extra colour saturation boost — mix-blend-mode overlay */}
       <div
         className="absolute inset-0 z-[2] pointer-events-none"
         style={{
@@ -57,8 +49,6 @@ function HeroSection() {
             'radial-gradient(ellipse 50% 50% at 20% 80%, rgba(255,217,61,0.12) 0%, transparent 70%)',
         }}
       />
-
-      {/* Paint blobs (keep for extra depth) */}
       {paintBlobs.map((b, i) => (
         <motion.div
           key={i}
@@ -69,8 +59,6 @@ function HeroSection() {
           style={{ backgroundColor: b.color, ...b.pos }}
         />
       ))}
-
-      {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 flex flex-col items-center text-center pt-32 pb-40">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -81,7 +69,6 @@ function HeroSection() {
           <span className="w-2 h-2 rounded-full bg-[#FF6B6B] animate-pulse" />
           <span className="text-sm font-medium text-white/80">Premium Interior Solutions</span>
         </motion.div>
-
         <motion.h1
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
@@ -94,7 +81,6 @@ function HeroSection() {
           {' '}&amp;{' '}
           <em className="not-italic" style={{ color: '#4ECDC4' }}>Paint Solutions</em>
         </motion.h1>
-
         <motion.p
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -103,30 +89,21 @@ function HeroSection() {
         >
           Modular Kitchens &bull; Paints &bull; Wardrobes &bull; False Ceiling &bull; PVC Panels &bull; Bath Fittings
         </motion.p>
-
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
           className="flex flex-wrap gap-4 justify-center mt-12"
         >
-          <a
-            href="#services"
-            className="group flex items-center gap-2 px-10 py-4 rounded-full text-white font-semibold transition-transform hover:scale-[1.04] liquid-glass"
-          >
+          <a href="#services" className="group flex items-center gap-2 px-10 py-4 rounded-full text-white font-semibold transition-transform hover:scale-[1.04] liquid-glass">
             Explore Designs
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </a>
-          <a
-            href="#contact"
-            className="flex items-center gap-2 px-10 py-4 rounded-full text-white font-semibold border border-white/20 hover:border-white/40 transition-all hover:scale-[1.04] backdrop-blur-sm bg-white/5"
-          >
+          <a href="#contact" className="flex items-center gap-2 px-10 py-4 rounded-full text-white font-semibold border border-white/20 hover:border-white/40 transition-all hover:scale-[1.04] backdrop-blur-sm bg-white/5">
             <Calendar size={18} />
             Book Free Consultation
           </a>
         </motion.div>
-
-        {/* Stats */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -144,8 +121,6 @@ function HeroSection() {
           ))}
         </motion.div>
       </div>
-
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
@@ -166,7 +141,8 @@ export default function App() {
     <div className="overflow-x-hidden">
       <Navbar />
       <HeroSection />
-      <div className="bg-white">
+      {/* ── Warm paint-inspired background for all sections below hero ── */}
+      <div className="page-body-bg">
         <Brands />
         <Services />
         <PaintExperience />
