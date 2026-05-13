@@ -3,40 +3,31 @@ import { motion } from 'framer-motion'
 
 const team = [
   {
-    name: 'Ramesh Agarwal',
+    name: 'Ravi Jain',
     title: 'Founder & Managing Director',
     image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400',
     description:
-      'With over 25 years in the interior design and paint industry, Ramesh founded Balaji Colour Store with a vision to bring premium home transformation services to every household. His deep expertise in Asian Paints solutions and modular interiors has helped over 5,000 families create their dream homes.',
+      'With over 25 years in the interior design and paint industry, Ravi founded Balaji Colour Store with a vision to bring premium home transformation services to every household. His deep expertise in Asian Paints solutions and modular interiors has helped over 5,000 families create their dream homes.',
     tag: 'Founder',
     color: '#FF6B6B',
   },
   {
-    name: 'Sunita Agarwal',
-    title: 'Co-founder & Design Head',
-    image: 'https://images.pexels.com/photos/3796217/pexels-photo-3796217.jpeg?auto=compress&cs=tinysrgb&w=400',
+    name: 'Shubham Jain',
+    title: 'Head of Design & Projects',
+    image: 'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=400',
     description:
-      'Sunita leads the creative direction of every project, ensuring each space reflects the client\'s personality. With a background in interior architecture and a passion for colour theory, she curates palettes and modular layouts that balance aesthetics with functionality.',
-    tag: 'Design',
+      'Shubham leads the creative and operational side of every project, from concept to final handover. His eye for detail and passion for precision ensure that every modular kitchen, wardrobe, and false ceiling installation is delivered on time and above expectations.',
+    tag: 'Design & Ops',
     color: '#4ECDC4',
   },
   {
-    name: 'Amit Sharma',
-    title: 'Head of Operations & Projects',
-    image: 'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=400',
+    name: 'Umang Jain',
+    title: 'Head of Sales & Client Relations',
+    image: 'https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=400',
     description:
-      'Amit oversees end-to-end project execution — from the first site visit to final handover. His meticulous attention to timelines and quality control ensures that every installation, whether a modular kitchen or a false ceiling, is delivered on schedule and above expectations.',
-    tag: 'Operations',
+      'Umang is the first point of contact for new clients and the driving force behind Balaji\'s trusted reputation. His consultative approach to understanding each family\'s needs, combined with transparent pricing, has earned the studio a near-perfect referral rate.',
+    tag: 'Sales',
     color: '#FFD93D',
-  },
-  {
-    name: 'Neha Verma',
-    title: 'Client Relations & Sales Head',
-    image: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=400',
-    description:
-      'Neha is the first point of contact for new clients and the driving force behind Balaji\'s trusted reputation. Her consultative approach to understanding each family\'s needs, combined with transparent pricing, has earned the studio a near-perfect referral rate.',
-    tag: 'Client Relations',
-    color: '#C084FC',
   },
 ]
 
@@ -63,20 +54,20 @@ export default function Testimonials() {
           </p>
         </motion.div>
 
-        {/* Cards grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Cards — centred 3-column grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {team.map((member, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.12 }}
+              transition={{ delay: i * 0.14 }}
               whileHover={{ y: -6 }}
               className="group relative rounded-3xl overflow-hidden bg-white border border-brand-dark/5 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col"
             >
               {/* Photo */}
-              <div className="relative h-64 overflow-hidden">
+              <div className="relative h-72 overflow-hidden">
                 <img
                   src={member.image}
                   alt={member.name}
@@ -89,7 +80,7 @@ export default function Testimonials() {
                 >
                   {member.tag}
                 </span>
-                {/* Bottom gradient fade */}
+                {/* Bottom gradient fade into card */}
                 <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white to-transparent" />
               </div>
 
