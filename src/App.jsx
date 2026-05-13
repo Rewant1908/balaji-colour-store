@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import Navbar from './components/Navbar.jsx'
 import Brands from './components/Brands.jsx'
 import Services from './components/Services.jsx'
@@ -9,7 +9,13 @@ import WhyChoose from './components/WhyChoose.jsx'
 import Testimonials from './components/Testimonials.jsx'
 import ContactForm from './components/ContactForm.jsx'
 import Footer from './components/Footer.jsx'
+import LiquidChrome from './components/LiquidChrome.jsx'
 import { ArrowRight, Calendar } from 'lucide-react'
+
+// ─── Vibrant paint-inspired base colors for LiquidChrome ─────────────────────
+// The shader uses baseColor / abs(sin(time - uv)) which creates sweeping bands.
+// Warm coral-gold-teal values produce a vivid paint-pour look.
+const LIQUID_BASE_COLOR = [0.9, 0.35, 0.15] // deep coral → gold → teal bands
 
 const paintBlobs = [
   { color: '#FF6B6B', pos: { top: '10%',  left: '-5%'  }, delay: 0   },
@@ -24,26 +30,42 @@ function HeroSection() {
     <section
       id="hero"
       className="relative min-h-screen flex items-center overflow-hidden"
-      style={{ background: 'hsl(var(--background))' }}
     >
-      {/* Fullscreen looping video */}
-      <video
-        autoPlay loop muted playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0"
-        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4"
+      {/* ── LiquidChrome fullscreen background ───────────────────────────── */}
+      <div className="absolute inset-0 z-0">
+        <LiquidChrome
+          baseColor={LIQUID_BASE_COLOR}
+          speed={0.6}
+          amplitude={0.55}
+          frequencyX={2.8}
+          frequencyY={1.8}
+          interactive={true}
+          style={{ width: '100%', height: '100%' }}
+        />
+      </div>
+
+      {/* Dark overlay so text stays readable over the vivid liquid */}
+      <div className="absolute inset-0 z-[1] bg-black/45" />
+
+      {/* Extra colour saturation boost — mix-blend-mode overlay */}
+      <div
+        className="absolute inset-0 z-[2] pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255,107,107,0.18) 0%, transparent 70%),' +
+            'radial-gradient(ellipse 60% 80% at 80% 70%, rgba(78,205,196,0.14) 0%, transparent 70%),' +
+            'radial-gradient(ellipse 50% 50% at 20% 80%, rgba(255,217,61,0.12) 0%, transparent 70%)',
+        }}
       />
 
-      {/* Subtle dark scrim so text stays readable */}
-      <div className="absolute inset-0 z-[1] bg-black/40" />
-
-      {/* Paint blobs (paint-inspired, above scrim) */}
+      {/* Paint blobs (keep for extra depth) */}
       {paintBlobs.map((b, i) => (
         <motion.div
           key={i}
           initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 0.18, scale: 1 }}
+          animate={{ opacity: 0.22, scale: 1 }}
           transition={{ duration: 2.5, delay: b.delay }}
-          className="absolute w-72 h-72 rounded-full blur-3xl pointer-events-none z-[2]"
+          className="absolute w-72 h-72 rounded-full blur-3xl pointer-events-none z-[3]"
           style={{ backgroundColor: b.color, ...b.pos }}
         />
       ))}
