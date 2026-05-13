@@ -9,6 +9,7 @@ import PartnerSection from './components/PartnerSection'
 import Footer from './components/Footer'
 import CopyrightBar from './components/CopyrightBar'
 import BottomNav from './components/BottomNav'
+import BrandsBentoSection from './components/BrandsBentoSection'
 
 const MARQUEE_IMGS = [
   'https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif',
@@ -77,6 +78,7 @@ export default function App() {
     <div className="bg-white min-h-screen pb-24">
       <HeroSection />
       <MarqueeSection />
+      <BrandsBentoSection />
       <TestimonialSection />
       <PricingSection />
       <TestimonialCarousel />

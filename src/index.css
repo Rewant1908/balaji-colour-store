@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Custom Fonts ──────────────────────────────────────────── */
 @font-face {
   font-family: 'PP Neue Montreal';
   src: url('https://assets.website-files.com/6009ec8cda7f305645c9d91b/60176f9bb43e36419997ecfe_PPNeueMontreal-Book.otf') format('opentype');
@@ -21,25 +22,11 @@
   font-display: swap;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
 body {
-  font-family: 'PP Neue Montreal', 'Helvetica Neue', Arial, sans-serif;
-  background: #ffffff;
-  color: #051A24;
-  line-height: 1.6;
-  overflow-x: hidden;
+  font-family: 'PP Neue Montreal', 'Helvetica Neue', 'Arial', sans-serif;
 }
 
-@keyframes fadeInUp {
-  0%   { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in-up {
-  animation: fadeInUp 0.8s ease-out forwards;
-  opacity: 0;
-}
-
+/* ── Marquee ───────────────────────────────────────────────── */
 @keyframes marquee {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -49,4 +36,68 @@ body {
 }
 @media (max-width: 768px) {
   .animate-marquee { animation-duration: 10s; }
+}
+
+/* ── Fade In Up ────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  0%   { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+/* ── Bento Card Paint Can Animations ──────────────────────── */
+@keyframes canFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-6px) rotate(1.5deg); }
+}
+
+@keyframes drip1 {
+  0%   { transform: scaleY(0); opacity: 0; }
+  20%  { transform: scaleY(0); opacity: 0; }
+  60%  { transform: scaleY(1); opacity: 1; }
+  85%  { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(0); opacity: 0; }
+}
+
+@keyframes drip2 {
+  0%   { transform: scaleY(0); opacity: 0; }
+  30%  { transform: scaleY(0); opacity: 0; }
+  65%  { transform: scaleY(1); opacity: 1; }
+  90%  { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(0); opacity: 0; }
+}
+
+@keyframes spinSwirl {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes splashPulse {
+  0%, 100% { transform: scale(1);    opacity: 0.85; }
+  50%       { transform: scale(1.08); opacity: 1; }
+}
+
+@keyframes rollerSlide {
+  0%   { transform: translateX(-8px); }
+  100% { transform: translateX(8px); }
+}
+
+@keyframes colorBob {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-5px); }
+}
+
+@keyframes starPop {
+  0%   { transform: scale(0) rotate(-30deg); opacity: 0; }
+  70%  { transform: scale(1.3) rotate(5deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg);  opacity: 1; }
+}
+
+/* Bento card base */
+.bento-card {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
