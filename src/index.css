@@ -2,7 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Custom Fonts ──────────────────────────────────────────── */
+/* ── TASK-005: Smooth scroll + navbar offset ── */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* ── Font faces ── */
 @font-face {
   font-family: 'PP Neue Montreal';
   src: url('https://assets.website-files.com/6009ec8cda7f305645c9d91b/60176f9bb43e36419997ecfe_PPNeueMontreal-Book.otf') format('opentype');
@@ -22,11 +28,7 @@
   font-display: swap;
 }
 
-body {
-  font-family: 'PP Neue Montreal', 'Helvetica Neue', 'Arial', sans-serif;
-}
-
-/* ── Marquee ───────────────────────────────────────────────── */
+/* ── Marquee animation ── */
 @keyframes marquee {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -35,10 +37,12 @@ body {
   animation: marquee 30s linear infinite;
 }
 @media (max-width: 768px) {
-  .animate-marquee { animation-duration: 10s; }
+  .animate-marquee {
+    animation-duration: 10s;
+  }
 }
 
-/* ── Fade In Up ────────────────────────────────────────────── */
+/* ── Fade in up ── */
 @keyframes fadeInUp {
   0%   { opacity: 0; transform: translateY(30px); }
   100% { opacity: 1; transform: translateY(0); }
@@ -48,97 +52,22 @@ body {
   opacity: 0;
 }
 
-/* ── Shimmer sweep ─────────────────────────────────────────── */
-@keyframes shimmerSweep {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(200%); }
+/* ── Glass utility ── */
+.glass {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.5);
 }
 
-/* ── Bento Card Paint Can Animations ──────────────────────── */
-@keyframes canFloat {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50%       { transform: translateY(-6px) rotate(1.5deg); }
-}
-@keyframes drip1 {
-  0%   { transform: scaleY(0); opacity: 0; }
-  20%  { transform: scaleY(0); opacity: 0; }
-  60%  { transform: scaleY(1); opacity: 1; }
-  85%  { transform: scaleY(1); opacity: 1; }
-  100% { transform: scaleY(0); opacity: 0; }
-}
-@keyframes drip2 {
-  0%   { transform: scaleY(0); opacity: 0; }
-  30%  { transform: scaleY(0); opacity: 0; }
-  65%  { transform: scaleY(1); opacity: 1; }
-  90%  { transform: scaleY(1); opacity: 1; }
-  100% { transform: scaleY(0); opacity: 0; }
-}
-@keyframes spinSwirl {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-@keyframes splashPulse {
-  0%, 100% { transform: scale(1);    opacity: 0.85; }
-  50%       { transform: scale(1.08); opacity: 1; }
-}
-@keyframes rollerSlide {
-  0%   { transform: translateX(-8px); }
-  100% { transform: translateX(8px); }
-}
-@keyframes colorBob {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-5px); }
-}
-@keyframes starPop {
-  0%   { transform: scale(0) rotate(-30deg); opacity: 0; }
-  70%  { transform: scale(1.3) rotate(5deg); opacity: 1; }
-  100% { transform: scale(1) rotate(0deg);  opacity: 1; }
-}
-
-/* ── liquid-glass utility (used by Hero) ───────────────────── */
-.liquid-glass {
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.15);
-}
-
-/* Bento card base */
-.bento-card {
-  will-change: transform, opacity;
-  backface-visibility: hidden;
-}
-
-/* ─────────────────────────────────────────────────────────────
-   PAGE BODY BACKGROUND
-   Replaces the flat bg-white below the hero.
-   A warm off-white base with subtle floating paint-colour blobs
-   that repeat seamlessly as the user scrolls.
-   All section components sit on top of this — their own bg-white
-   card backgrounds remain white, so contrast is preserved.
-────────────────────────────────────────────────────────────── */
+/* ── Page warm background ── */
 .page-body-bg {
-  position: relative;
-  background-color: #fdf8f4; /* warm cream instead of pure white */
-
-  /* Layered radial blobs — same palette as hero */
+  background-color: #fdf8f4;
   background-image:
-    /* coral top-left */
-    radial-gradient(ellipse 55% 35% at 8% 12%,  rgba(255,107,107,0.10) 0%, transparent 70%),
-    /* teal mid-right */
-    radial-gradient(ellipse 45% 30% at 92% 30%, rgba(78,205,196,0.10)  0%, transparent 70%),
-    /* gold bottom-left */
-    radial-gradient(ellipse 50% 28% at 15% 62%, rgba(255,217,61,0.09)  0%, transparent 65%),
-    /* purple centre */
-    radial-gradient(ellipse 40% 25% at 55% 50%, rgba(192,132,252,0.07) 0%, transparent 65%),
-    /* pink bottom-right */
-    radial-gradient(ellipse 48% 32% at 88% 78%, rgba(244,114,182,0.08) 0%, transparent 70%),
-    /* teal very bottom */
-    radial-gradient(ellipse 55% 20% at 40% 95%, rgba(78,205,196,0.08)  0%, transparent 60%);
-}
-
-/* Ensure child sections that declare bg-white stay crisp white */
-.page-body-bg section.bg-white,
-.page-body-bg .bg-white {
-  background-color: #ffffff;
+    radial-gradient(ellipse 600px 400px at 10% 20%, rgba(232,115,74,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 350px at 90% 10%, rgba(45,184,168,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 300px at 50% 60%, rgba(212,168,67,0.05) 0%, transparent 70%),
+    radial-gradient(ellipse 450px 300px at 80% 80%, rgba(124,92,191,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 350px 250px at 20% 90%, rgba(232,115,180,0.05) 0%, transparent 70%),
+    radial-gradient(ellipse 300px 200px at 60% 30%, rgba(45,184,168,0.04) 0%, transparent 70%);
 }
