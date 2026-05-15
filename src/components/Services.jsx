@@ -1,44 +1,127 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Paintbrush, Box, ShowerHead, Lamp, DoorOpen, Layers, UtensilsCrossed, Shirt, Monitor, Gem } from 'lucide-react'
+import { Home, Layers, Palette, Wind, DoorOpen, Droplets, ChefHat, Sparkles } from 'lucide-react'
 
 const services = [
-  { title: 'Modular Kitchens', icon: UtensilsCrossed, image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=400&fit=crop', size: 'col-span-2 row-span-2', gradient: 'from-brand-coral to-brand-purple' },
-  { title: 'Modular Wardrobes', icon: Shirt, image: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=400&h=400&fit=crop', size: 'col-span-1 row-span-1', gradient: 'from-brand-teal to-brand-coral' },
-  { title: 'Paint Solutions', icon: Paintbrush, image: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=400&h=400&fit=crop', size: 'col-span-1 row-span-1', gradient: 'from-brand-purple to-brand-teal' },
-  { title: 'False Ceiling', icon: Lamp, image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&h=400&fit=crop', size: 'col-span-1 row-span-1', gradient: 'from-brand-gold to-brand-coral' },
-  { title: 'PVC/WPC Panels', icon: Layers, image: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?w=400&h=400&fit=crop', size: 'col-span-1 row-span-1', gradient: 'from-brand-pink to-brand-purple' },
-  { title: 'Modular TV Units', icon: Monitor, image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&h=400&fit=crop', size: 'col-span-1 row-span-1', gradient: 'from-brand-teal to-brand-gold' },
-  { title: 'Modular Vanity', icon: Gem, image: 'https://images.unsplash.com/photo-1584622050111-993a426fbf0a?w=400&h=400&fit=crop', size: 'col-span-1 row-span-1', gradient: 'from-brand-coral to-brand-gold' },
-  { title: 'Bath Fittings', icon: ShowerHead, image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=400&fit=crop', size: 'col-span-1 row-span-1', gradient: 'from-brand-purple to-brand-pink' },
-  { title: 'UPVC Doors & Windows', icon: DoorOpen, image: 'https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=600&h=300&fit=crop', size: 'col-span-2 row-span-1', gradient: 'from-brand-gold to-brand-teal' },
+  {
+    icon: ChefHat,
+    title: 'Modular Kitchen',
+    desc: 'Premium modular kitchens with Italian hardware, soft-close mechanisms, and custom finishes tailored to your lifestyle.',
+    color: '#E8734A',
+    glow: 'rgba(232,115,74,0.35)',
+    tag: 'Most Popular',
+  },
+  {
+    icon: Home,
+    title: 'Modular Wardrobe',
+    desc: 'Space-optimised wardrobes with sliding/hinged shutters, internal organisers, and mirror panels.',
+    color: '#7C5CBF',
+    glow: 'rgba(124,92,191,0.35)',
+    tag: null,
+  },
+  {
+    icon: Palette,
+    title: 'Paint Solutions',
+    desc: 'Expert colour consultation backed by Asian Paints, Berger, Nippon & Dulux — flawless finish guaranteed.',
+    color: '#2DB8A8',
+    glow: 'rgba(45,184,168,0.35)',
+    tag: null,
+  },
+  {
+    icon: Layers,
+    title: 'False Ceiling',
+    desc: 'Designer gypsum, POP, and grid false ceilings with integrated lighting — add drama to every room.',
+    color: '#D4A843',
+    glow: 'rgba(212,168,67,0.35)',
+    tag: null,
+  },
+  {
+    icon: Wind,
+    title: 'PVC / WPC Panels',
+    desc: 'Waterproof wall cladding panels — ideal for kitchens, bathrooms, and feature walls. Zero maintenance.',
+    color: '#E8734A',
+    glow: 'rgba(232,115,74,0.35)',
+    tag: null,
+  },
+  {
+    icon: DoorOpen,
+    title: 'UPVC Doors & Windows',
+    desc: 'Sound-proof, thermally-insulated UPVC frames. Reduces noise by up to 40 dB and UV heat by 60%.',
+    color: '#7C5CBF',
+    glow: 'rgba(124,92,191,0.35)',
+    tag: null,
+  },
+  {
+    icon: Droplets,
+    title: 'Bath Fittings',
+    desc: 'Premium bathroom accessories — rain showers, concealed cisterns, freestanding tubs, and smart faucets.',
+    color: '#2DB8A8',
+    glow: 'rgba(45,184,168,0.35)',
+    tag: null,
+  },
+  {
+    icon: Sparkles,
+    title: 'Interior Consultation',
+    desc: '1-on-1 design consultation to plan your complete home interior from concept to completion.',
+    color: '#D4A843',
+    glow: 'rgba(212,168,67,0.35)',
+    tag: 'Free',
+  },
 ]
 
 export default function Services() {
   return (
-    <section id="services" className="py-24 bg-gradient-to-b from-white to-brand-light relative">
+    <section id="services" className="py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-brand-coral/10 text-brand-coral text-sm font-semibold mb-4">Our Services</span>
-          <h2 className="text-4xl sm:text-5xl font-bold text-brand-dark">Complete Home Solutions</h2>
-          <p className="mt-4 text-lg text-brand-dark/50 max-w-2xl mx-auto">Premium modular interiors, paints, and home transformation services under one roof</p>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <span className="inline-block px-4 py-1.5 rounded-full bg-brand-coral/10 text-brand-coral text-sm font-semibold mb-4">
+            What We Offer
+          </span>
+          <h2 className="text-4xl sm:text-5xl font-bold text-brand-dark">
+            Our Services
+          </h2>
+          <p className="mt-4 text-lg text-brand-dark/50 max-w-2xl mx-auto">
+            Everything you need to transform your home — under one roof
+          </p>
         </motion.div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[200px]">
-          {services.map((service, i) => {
-            const Icon = service.icon
-            return (
-              <motion.div key={service.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} whileHover={{ scale: 1.02, y: -5 }} className={`${service.size} relative group overflow-hidden rounded-3xl cursor-pointer`}>
-                <img src={service.image} alt={service.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-brand-dark/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
-                <div className="absolute bottom-0 left-0 right-0 p-5">
-                  <div className="flex items-center gap-3">
-                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center text-white shadow-lg`}><Icon size={20} /></div>
-                    <h3 className="text-white font-bold text-lg">{service.title}</h3>
-                  </div>
-                </div>
-              </motion.div>
-            )
-          })}
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {services.map((s, i) => (
+            <motion.div
+              key={s.title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08, duration: 0.5 }}
+              whileHover={{
+                y: -6,
+                boxShadow: `0 16px 48px ${s.glow}, 0 4px 16px rgba(0,0,0,0.06)`,
+              }}
+              className="relative bg-white rounded-3xl p-6 border border-black/5 shadow-sm cursor-default transition-colors duration-300"
+            >
+              {s.tag && (
+                <span
+                  className="absolute top-4 right-4 text-[11px] font-bold px-2.5 py-0.5 rounded-full text-white"
+                  style={{ background: s.color }}
+                >
+                  {s.tag}
+                </span>
+              )}
+              <div
+                className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5"
+                style={{ background: `${s.color}18` }}
+              >
+                <s.icon size={22} style={{ color: s.color }} />
+              </div>
+              <h3 className="font-bold text-brand-dark text-lg mb-2">{s.title}</h3>
+              <p className="text-sm text-brand-dark/55 leading-relaxed">{s.desc}</p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
