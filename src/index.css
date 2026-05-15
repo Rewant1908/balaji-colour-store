@@ -1,69 +1,95 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-/* ── PP Neue Montreal ── */
-@font-face {
-  font-family: 'PP Neue Montreal';
-  src: url('https://assets.website-files.com/6009ec8cda7f305645c9d91b/60176f9bb43e36419997ecfe_PPNeueMontreal-Book.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'PP Neue Montreal';
-  src: url('https://assets.website-files.com/6009ec8cda7f305645c9d91b/60176f9b39c5673e51a86f5a_PPNeueMontreal-Medium.otf') format('opentype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
+@theme {
+  --font-playfair: 'Playfair Display', serif;
+  --font-syne: 'Syne', sans-serif;
+  --font-dm: 'DM Sans', sans-serif;
+  --font-bebas: 'Bebas Neue', sans-serif;
+  --color-brand-cream: #FDFAF6;
+  --color-brand-saffron: #FF6B2B;
+  --color-brand-teal: #00C2CB;
+  --color-brand-gold: #F5A623;
 }
 
-/* ── PP Mondwest ── */
-@font-face {
-  font-family: 'PP Mondwest';
-  src: url('/PPMondwest-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-
-/* ── Base ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  font-family: 'PP Neue Montreal', 'Montreal', system-ui, -apple-system, sans-serif;
-  background: #ffffff;
-  color: #051A24;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background-color: #FDFAF6;
+  color: #1A1A1A;
   min-height: 100dvh;
   overflow-x: hidden;
 }
 
-/* ── Marquee ── */
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Custom cursor — pointer: fine only */
+@media (pointer: fine) {
+  body { cursor: none; }
+  a, button, input, select, textarea { cursor: none; }
+}
+
+/* Text stroke utilities */
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.15);
+  color: transparent;
+}
+.text-stroke-saffron {
+  -webkit-text-stroke: 2px #FF6B2B;
+  color: transparent;
+}
+
+/* Marquee animations */
 @keyframes marquee {
-  0%   { transform: translateX(0); }
+  0%   { transform: translateX(0%); }
   100% { transform: translateX(-50%); }
 }
-.animate-marquee {
-  animation: marquee 30s linear infinite;
+@keyframes marquee-reverse {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
 }
-@media (max-width: 768px) {
-  .animate-marquee {
-    animation: marquee 10s linear infinite;
+.animate-marquee         { animation: marquee         25s linear infinite; }
+.animate-marquee-reverse { animation: marquee-reverse 25s linear infinite; }
+
+/* Pause on hover */
+.animate-marquee:hover,
+.animate-marquee-reverse:hover { animation-play-state: paused; }
+
+/* Fade-in-up for scroll reveals */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Reduced-motion safety */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-/* ── Fade In Up ── */
-@keyframes fadeInUp {
-  0%   { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in-up {
-  animation: fadeInUp 0.8s ease-out forwards;
-  opacity: 0;
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid #FF6B2B;
+  outline-offset: 3px;
+  border-radius: 4px;
 }
