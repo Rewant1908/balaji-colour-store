@@ -1,8 +1,7 @@
 import React, { useRef, useCallback } from 'react'
-import Button from './Button'
-import { useInViewAnimation } from '../hooks/useInViewAnimation'
+import { Button } from './Button'
 
-const GIFS = [
+const gifImages = [
   'https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif',
   'https://motionsites.ai/assets/hero-portfolio-cosmic-preview-BpvWJ3Nc.gif',
   'https://motionsites.ai/assets/hero-velorah-preview-CJNTtbpd.gif',
@@ -13,41 +12,77 @@ const GIFS = [
   'https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif',
 ]
 
-export default function PartnerSection() {
-  const { ref, inView } = useInViewAnimation()
+export const PartnerSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null)
   const lastSpawnRef = useRef(0)
-  const gifIndexRef = useRef(0)
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     const now = Date.now()
     if (now - lastSpawnRef.current < 80) return
     lastSpawnRef.current = now
-    const container = containerRef.current; if (!container) return
+
+    const container = containerRef.current
+    if (!container) return
     const rect = container.getBoundingClientRect()
-    const x = e.clientX - rect.left, y = e.clientY - rect.top
-    const rotation = (Math.random() - 0.5) * 20
-    const gif = GIFS[gifIndexRef.current % GIFS.length]
-    gifIndexRef.current++
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+
     const img = document.createElement('img')
-    img.src = gif
-    img.style.cssText = `position:absolute;left:${x-60}px;top:${y-45}px;width:120px;height:90px;object-fit:cover;border-radius:12px;transform:rotate(${rotation}deg) scale(1);pointer-events:none;z-index:10;transition:opacity 1000ms,transform 1000ms;box-shadow:0 4px 20px rgba(0,0,0,0.15)`
+    const src = gifImages[Math.floor(Math.random() * gifImages.length)]
+    const rotation = (Math.random() * 20 - 10).toFixed(1)
+    img.src = src
+    img.style.cssText = `
+      position: absolute;
+      left: ${x}px;
+      top: ${y}px;
+      width: 120px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 12px;
+      transform: translate(-50%, -50%) rotate(${rotation}deg) scale(1);
+      pointer-events: none;
+      z-index: 10;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      transition: opacity 1000ms ease, transform 1000ms ease;
+    `
     container.appendChild(img)
-    requestAnimationFrame(() => requestAnimationFrame(() => { img.style.opacity = '0'; img.style.transform = `rotate(${rotation}deg) scale(0.8)` }))
-    setTimeout(() => img.remove(), 1100)
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        img.style.opacity = '0'
+        img.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(0.85)`
+      })
+    })
+
+    setTimeout(() => {
+      if (img.parentNode) img.parentNode.removeChild(img)
+    }, 1100)
   }, [])
+
   return (
     <section className="w-full py-12 px-6">
-      <div ref={containerRef} className="relative max-w-7xl mx-auto rounded-[40px] py-48 overflow-hidden cursor-crosshair"
-        style={{ boxShadow: '0 0 0 0.5px rgba(0,0,0,0.05),0 4px 30px rgba(0,0,0,0.06)' }} onMouseMove={handleMouseMove}>
-        <div ref={ref as React.RefObject<HTMLDivElement>} className="flex flex-col items-center text-center relative z-20">
-          <h2 className={`text-[48px] md:text-[64px] lg:text-[80px] font-normal text-[#0D212C] mb-12 tracking-tight leading-[1.05] ${inView ? 'animate-fade-in-up' : 'opacity-0'}`}
-            style={{ fontFamily: "'PP Mondwest','Georgia',serif" }}>Partner with us</h2>
-          <div className={`${inView ? 'animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '0.2s' }}>
-            <Button variant="primary" href="https://halaskastudio.com/./book" className="px-8 py-4 text-base gap-3">
-              <img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=1" alt="Viktor" className="w-10 h-10 rounded-full object-cover" loading="lazy" />
-              Start chat with Viktor
-            </Button>
-          </div>
+      <div
+        ref={containerRef}
+        className="relative max-w-7xl mx-auto py-48 rounded-[40px] overflow-hidden flex flex-col items-center justify-center"
+        style={{ boxShadow: '0 0 0 0.5px rgba(0,0,0,0.05), 0 4px 30px rgba(0,0,0,0.08)', background: '#fff' }}
+        onMouseMove={handleMouseMove}
+      >
+        <h2
+          className="text-[48px] md:text-[64px] lg:text-[80px] text-[#0D212C] mb-12 relative z-20 text-center leading-none"
+          style={{ fontFamily: "'PP Mondwest', Georgia, serif" }}
+        >
+          Partner with us
+        </h2>
+
+        <div className="relative z-20">
+          <Button variant="primary" className="flex items-center gap-3 px-6 py-3">
+            <img
+              src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=2"
+              alt="Viktor"
+              className="w-10 h-10 rounded-full object-cover"
+            />
+            Start chat with Viktor
+          </Button>
         </div>
       </div>
     </section>

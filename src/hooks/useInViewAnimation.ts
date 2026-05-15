@@ -1,18 +1,25 @@
 import { useEffect, useRef, useState } from 'react'
 
 export function useInViewAnimation(threshold = 0.1) {
-  const ref = useRef<HTMLElement>(null)
+  const ref = useRef<HTMLElement | null>(null)
   const [inView, setInView] = useState(false)
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setInView(true); obs.disconnect() } },
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true)
+          observer.unobserve(el)
+        }
+      },
       { threshold }
     )
-    obs.observe(el)
-    return () => obs.disconnect()
+
+    observer.observe(el)
+    return () => observer.disconnect()
   }, [threshold])
 
   return { ref, inView }
